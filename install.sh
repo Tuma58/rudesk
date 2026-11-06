@@ -76,8 +76,9 @@ main() {
   require_root "$@"
   detect_os
   detect_arch
-  verify_vendor
+  # Сначала зависимости чистого VPS (curl, tar, dig, ca-certificates…), затем проверка vendor
   install_base_apt
+  verify_vendor
   run_wizard
   install_ufw_apt
   install_binaries
