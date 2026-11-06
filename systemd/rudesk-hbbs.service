@@ -1,0 +1,20 @@
+[Unit]
+Description=rudesk ID / rendezvous server (hbbs)
+Documentation=file:///opt/rudesk/CONNECTION.txt
+After=network-online.target rudesk-hbbr.service
+Wants=network-online.target rudesk-hbbr.service
+
+[Service]
+Type=simple
+EnvironmentFile=-/opt/rudesk/rudesk.env
+WorkingDirectory=/var/lib/rudesk
+ExecStart=/opt/rudesk/bin/hbbs
+Restart=always
+RestartSec=3
+LimitNOFILE=1048576
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=rudesk-hbbs
+
+[Install]
+WantedBy=multi-user.target

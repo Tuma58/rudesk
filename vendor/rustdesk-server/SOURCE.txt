@@ -1,0 +1,4 @@
+Vendored from RustDesk Server OSS release 1.1.16
+Upstream project: https://github.com/rustdesk/rustdesk-server
+Files: hbbs, hbbr (linux amd64 and arm64)
+Downloaded once into this repository so installs do not fetch upstream at runtime.

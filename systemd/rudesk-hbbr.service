@@ -1,0 +1,20 @@
+[Unit]
+Description=rudesk relay server (hbbr)
+Documentation=file:///opt/rudesk/CONNECTION.txt
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+EnvironmentFile=-/opt/rudesk/rudesk.env
+WorkingDirectory=/var/lib/rudesk
+ExecStart=/opt/rudesk/bin/hbbr
+Restart=always
+RestartSec=3
+LimitNOFILE=1048576
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=rudesk-hbbr
+
+[Install]
+WantedBy=multi-user.target
