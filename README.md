@@ -6,10 +6,10 @@
 
 ## Установка одной командой
 
-После публикации репозитория на GitHub подставьте своего владельца (`<owner>`) и выполните на VPS от root:
+После публикации репозитория на GitHub подставьте своего владельца (`Tuma58`) и выполните на VPS от root:
 
 ```bash
-curl -fsSL https://github.com/<owner>/rudesk/archive/refs/heads/main.tar.gz | tar xz && sudo bash rudesk-main/install.sh
+curl -fsSL https://github.com/Tuma58/rudesk/archive/refs/heads/main.tar.gz | tar xz && sudo bash rudesk-main/install.sh
 ```
 
 Команда скачивает **архив этого репозитория** (скрипты + вендорные `hbbs`/`hbbr`) и запускает мастер установки.
