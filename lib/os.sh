@@ -104,7 +104,14 @@ install_base_apt() {
 install_ufw_apt() {
   [[ "${RUDESK_SETUP_UFW:-0}" == "1" ]] || return 0
   export DEBIAN_FRONTEND=noninteractive
+
+  if rudesk_ufw_bin >/dev/null 2>&1; then
+    ok "ufw уже установлен: $(rudesk_ufw_bin)"
+    return 0
+  fi
+
   log "Установка ufw..."
   apt_retry apt-get install -y ufw
-  command -v ufw >/dev/null 2>&1 || die "Не удалось установить ufw"
+  rudesk_ufw_bin >/dev/null 2>&1 || die "Пакет ufw установлен, но бинарник не найден (проверьте /usr/sbin/ufw и PATH)."
+  ok "ufw готов: $(rudesk_ufw_bin)"
 }

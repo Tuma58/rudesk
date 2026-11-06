@@ -8,6 +8,9 @@ RUDESK_DATA_DIR="${RUDESK_DATA_DIR:-/var/lib/rudesk}"
 RUDESK_LOG_DIR="${RUDESK_LOG_DIR:-/var/log/rudesk}"
 RUDESK_BIN_DIR="${RUDESK_OPT_DIR}/bin"
 
+# На минимальных VPS PATH часто без /usr/sbin — ufw/systemctl живут там
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:${PATH:-}"
+
 if [[ -t 1 ]]; then
   C_RESET=$'\033[0m'
   C_BOLD=$'\033[1m'
@@ -43,4 +46,17 @@ confirm() {
 
 ensure_cmd() {
   command -v "$1" >/dev/null 2>&1 || die "Не найдена команда: $1"
+}
+
+# ufw ставится в /usr/sbin; без sbin в PATH command -v «не видит» уже установленный пакет
+rudesk_ufw_bin() {
+  if command -v ufw >/dev/null 2>&1; then
+    command -v ufw
+  elif [[ -x /usr/sbin/ufw ]]; then
+    printf '%s\n' /usr/sbin/ufw
+  elif [[ -x /sbin/ufw ]]; then
+    printf '%s\n' /sbin/ufw
+  else
+    return 1
+  fi
 }
